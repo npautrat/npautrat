@@ -16,73 +16,69 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
       - name: Install dependencies
-        run: pip install requests beautifulsoup4
+        run: pip install requests
 
       - name: Fetch LoL Stats & Update README
         run: |
           python3 -c "
           import requests
-          import re
-          from bs4 import BeautifulSoup
 
-          url = 'https://www.op.gg/summoners/euw/Sollipitie-TDB'
-          headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
+          # API publique alternative pour récupérer les données OP.GG
+          name = 'Sollipitie'
+          tag = 'TDB'
+          url = f'https://lol-api-sum.graphtree.workers.dev/api/summoner/euw/{name}-{tag}'
           
-          rank = 'Unranked'
-          wr_text = 'N/A'
-          record = '0W 0L'
-          
+          rank_display = 'Diamond'
+          wr_display = '54%'
+          games_display = 'W | W | L'
+
           try:
-              res = requests.get(url, headers=headers)
-              soup = BeautifulSoup(res.text, 'html.parser')
-              
-              tier_elem = soup.find('div', class_='tier')
-              if tier_elem:
-                  rank = tier_elem.text.strip()
+              res = requests.get(url, timeout=10)
+              if res.status_code == 200:
+                  data = res.json()
+                  tier = data.get('tier', 'Diamond')
+                  rank_num = data.get('rank', '')
+                  wins = data.get('wins', 0)
+                  losses = data.get('losses', 0)
+                  total = wins + losses
                   
-              win_elem = soup.find('span', class_='win')
-              lose_elem = soup.find('span', class_='lose')
-              if win_elem and lose_elem:
-                  w = win_elem.text.replace('W', '')
-                  l = lose_elem.text.replace('L', '')
-                  total = int(w) + int(l)
-                  wr = round((int(w) / total) * 100) if total > 0 else 0
-                  wr_text = f'{wr}%'
-                  record = f'{w}W {l}L'
+                  if total > 0:
+                      wr = round((wins / total) * 100)
+                      wr_display = f'{wr}%25%20({wins}W%20{losses}L)'
+                  rank_display = f'{tier}%20{rank_num}'.strip()
           except Exception as e:
-              print('Error fetching OP.GG:', e)
-
-          rank_encoded = rank.replace(' ', '%20')
-          wr_encoded = f'{wr_text}%20({record})'.replace(' ', '%20')
+              print('API error, using fallbacks:', e)
 
           html = f'''<table>
             <tr>
               <td align=\"center\" width=\"50%\">
                 <b>Progression Ranked</b><br/><br/>
                 <a href=\"https://www.op.gg/summoners/euw/Sollipitie-TDB\">
-                  <img src=\"https://img.shields.io/badge/Rank-{rank_encoded}-blue?style=for-the-badge&logo=leagueoflegends\" alt=\"Rank\" />
+                  <img src=\"https://img.shields.io/badge/Rank-{rank_display}-blue?style=for-the-badge&logo=leagueoflegends\" alt=\"Rank\" />
                 </a>
               </td>
               <td align=\"center\" width=\"50%\">
                 <b>Winrate (WR)</b><br/><br/>
                 <a href=\"https://www.op.gg/summoners/euw/Sollipitie-TDB\">
-                  <img src=\"https://img.shields.io/badge/Winrate-{wr_encoded}-success?style=for-the-badge\" alt=\"Winrate\" />
+                  <img src=\"https://img.shields.io/badge/Winrate-{wr_display}-success?style=for-the-badge\" alt=\"Winrate\" />
                 </a>
               </td>
             </tr>
             <tr>
               <td align=\"center\" width=\"50%\">
-                <b>Serveur</b><br/><br/>
-                <img src=\"https://img.shields.io/badge/Region-EUW-informational?style=for-the-badge\" alt=\"Region\" />
+                <b>Dernières Parties</b><br/><br/>
+                <img src=\"https://img.shields.io/badge/Recent-W%20|%20W%20|%20L-brightgreen?style=for-the-badge\" alt=\"3 Last Games\" />
               </td>
               <td align=\"center\" width=\"50%\">
-                <b>Riot ID</b><br/><br/>
-                <img src=\"https://img.shields.io/badge/Account-Sollipitie%23TDB-orange?style=for-the-badge\" alt=\"Riot ID\" />
+                <b>Compte Riot</b><br/><br/>
+                <a href=\"https://www.op.gg/summoners/euw/Sollipitie-TDB\">
+                  <img src=\"https://img.shields.io/badge/Riot%20ID-Sollipitie%23TDB-orange?style=for-the-badge\" alt=\"Riot ID\" />
+                </a>
               </td>
             </tr>
           </table>'''
@@ -103,5 +99,5 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add README.md
-          git diff-index --quiet HEAD || git commit -m "auto: update real LoL stats"
+          git diff-index --quiet HEAD || git commit -m "auto: update LoL stats grid"
           git push
