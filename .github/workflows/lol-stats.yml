@@ -2,26 +2,25 @@ name: Update LoL Stats
 
 on:
   schedule:
-    # S'exécute automatiquement toutes les 6 heures
     - cron: '0 */6 * * *'
-  workflow_dispatch: # Permet de le lancer à la main pour tester
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   update-readme:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Fetch LoL Stats
         run: |
-          # Récupération basique des métriques d'affichage
           SUMMONER="Sollipitie-TDB"
           
-          # Génération du bloc HTML dynamique
           STATS_HTML="<table>\n  <tr>\n    <td align=\"center\" width=\"50%\">\n      <b>OP.GG Profile</b><br/><br/>\n      <a href=\"https://www.op.gg/summoners/euw/${SUMMONER}\">\n        <img src=\"https://img.shields.io/badge/LoL-Sollipitie%23TDB-blue?style=for-the-badge&logo=leagueoflegends\" />\n      </a>\n    </td>\n    <td align=\"center\" width=\"50%\">\n      <b>Live Rank Status</b><br/><br/>\n      <a href=\"https://www.op.gg/summoners/euw/${SUMMONER}\">\n        <img src=\"https://img.shields.io/badge/Status-OP.GG%20Verified-success?style=for-the-badge\" />\n      </a>\n    </td>\n  </tr>\n</table>"
           
-          # Remplacement dans le README
           python3 -c "
           with open('README.md', 'r') as f:
               content = f.read()
