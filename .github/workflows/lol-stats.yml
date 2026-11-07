@@ -15,20 +15,87 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Fetch LoL Stats
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+
+      - name: Fetch LoL Stats & Update README
         run: |
-          SUMMONER="Sollipitie-TDB"
-          
-          STATS_HTML="<table>\n  <tr>\n    <td align=\"center\" width=\"50%\">\n      <b>OP.GG Profile</b><br/><br/>\n      <a href=\"https://www.op.gg/summoners/euw/${SUMMONER}\">\n        <img src=\"https://img.shields.io/badge/LoL-Sollipitie%23TDB-blue?style=for-the-badge&logo=leagueoflegends\" />\n      </a>\n    </td>\n    <td align=\"center\" width=\"50%\">\n      <b>Live Rank Status</b><br/><br/>\n      <a href=\"https://www.op.gg/summoners/euw/${SUMMONER}\">\n        <img src=\"https://img.shields.io/badge/Status-OP.GG%20Verified-success?style=for-the-badge\" />\n      </a>\n    </td>\n  </tr>\n</table>"
-          
           python3 -c "
+          import requests
+          import re
+          from bs4 import BeautifulSoup
+
+          url = 'https://www.op.gg/summoners/euw/Sollipitie-TDB'
+          headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
+          
+          rank = 'Unranked'
+          wr_text = 'N/A'
+          record = '0W 0L'
+          
+          try:
+              res = requests.get(url, headers=headers)
+              soup = BeautifulSoup(res.text, 'html.parser')
+              
+              tier_elem = soup.find('div', class_='tier')
+              if tier_elem:
+                  rank = tier_elem.text.strip()
+                  
+              win_elem = soup.find('span', class_='win')
+              lose_elem = soup.find('span', class_='lose')
+              if win_elem and lose_elem:
+                  w = win_elem.text.replace('W', '')
+                  l = lose_elem.text.replace('L', '')
+                  total = int(w) + int(l)
+                  wr = round((int(w) / total) * 100) if total > 0 else 0
+                  wr_text = f'{wr}%'
+                  record = f'{w}W {l}L'
+          except Exception as e:
+              print('Error fetching OP.GG:', e)
+
+          rank_encoded = rank.replace(' ', '%20')
+          wr_encoded = f'{wr_text}%20({record})'.replace(' ', '%20')
+
+          html = f'''<table>
+            <tr>
+              <td align=\"center\" width=\"50%\">
+                <b>Progression Ranked</b><br/><br/>
+                <a href=\"https://www.op.gg/summoners/euw/Sollipitie-TDB\">
+                  <img src=\"https://img.shields.io/badge/Rank-{rank_encoded}-blue?style=for-the-badge&logo=leagueoflegends\" alt=\"Rank\" />
+                </a>
+              </td>
+              <td align=\"center\" width=\"50%\">
+                <b>Winrate (WR)</b><br/><br/>
+                <a href=\"https://www.op.gg/summoners/euw/Sollipitie-TDB\">
+                  <img src=\"https://img.shields.io/badge/Winrate-{wr_encoded}-success?style=for-the-badge\" alt=\"Winrate\" />
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td align=\"center\" width=\"50%\">
+                <b>Serveur</b><br/><br/>
+                <img src=\"https://img.shields.io/badge/Region-EUW-informational?style=for-the-badge\" alt=\"Region\" />
+              </td>
+              <td align=\"center\" width=\"50%\">
+                <b>Riot ID</b><br/><br/>
+                <img src=\"https://img.shields.io/badge/Account-Sollipitie%23TDB-orange?style=for-the-badge\" alt=\"Riot ID\" />
+              </td>
+            </tr>
+          </table>'''
+
           with open('README.md', 'r') as f:
               content = f.read()
-          start_marker = '<!--LOL-STATS-START-->'
-          end_marker = '<!--LOL-STATS-END-->'
-          new_content = content.split(start_marker)[0] + start_marker + '\n' + '''$STATS_HTML''' + '\n' + end_marker + content.split(end_marker)[1]
-          with open('README.md', 'w') as f:
-              f.write(new_content)
+
+          start = '<!--LOL-STATS-START-->'
+          end = '<!--LOL-STATS-END-->'
+          if start in content and end in content:
+              new_content = content.split(start)[0] + start + '\n' + html + '\n' + end + content.split(end)[1]
+              with open('README.md', 'w') as f:
+                  f.write(new_content)
           "
 
       - name: Commit & Push changes
@@ -36,5 +103,5 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add README.md
-          git diff-index --quiet HEAD || git commit -m "auto: update LoL stats"
+          git diff-index --quiet HEAD || git commit -m "auto: update real LoL stats"
           git push
