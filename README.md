@@ -24,8 +24,24 @@ jobs:
           python3 -c "
           with open('README.md', 'r') as f:
               content = f.read()
-          start_marker = '<!--LOL-STATS-START-->'
-          end_marker = '<!--LOL-STATS-END-->'
+          start_marker = '<!--LOL-STATS-START-->
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <b>OP.GG Profile</b><br/><br/>
+      <a href="https://www.op.gg/summoners/euw/Sollipitie-TDB">
+        <img src="https://img.shields.io/badge/LoL-Sollipitie%23TDB-blue?style=for-the-badge&logo=leagueoflegends" />
+      </a>
+    </td>
+    <td align="center" width="50%">
+      <b>Live Rank Status</b><br/><br/>
+      <a href="https://www.op.gg/summoners/euw/Sollipitie-TDB">
+        <img src="https://img.shields.io/badge/Status-OP.GG%20Verified-success?style=for-the-badge" />
+      </a>
+    </td>
+  </tr>
+</table>
+<!--LOL-STATS-END-->'
           new_content = content.split(start_marker)[0] + start_marker + '\n' + '''$STATS_HTML''' + '\n' + end_marker + content.split(end_marker)[1]
           with open('README.md', 'w') as f:
               f.write(new_content)
