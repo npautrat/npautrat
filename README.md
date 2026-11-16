@@ -18,20 +18,20 @@
     <td align="center" width="50%">
       <b>Progression Ranked</b><br/><br/>
       <a href="https://www.op.gg/summoners/euw/Sollipitie-TDB">
-        <img src="https://img.shields.io/badge/Rank-Diamond-blue?style=for-the-badge&logo=leagueoflegends" alt="Rank" />
+        <img src="https://img.shields.io/badge/Rank-Unranked-blue?style=for-the-badge&logo=leagueoflegends" alt="Rank" />
       </a>
     </td>
     <td align="center" width="50%">
       <b>Winrate (WR)</b><br/><br/>
       <a href="https://www.op.gg/summoners/euw/Sollipitie-TDB">
-        <img src="https://img.shields.io/badge/Winrate-54%-success?style=for-the-badge" alt="Winrate" />
+        <img src="https://img.shields.io/badge/Winrate-54%25-success?style=for-the-badge" alt="Winrate" />
       </a>
     </td>
   </tr>
   <tr>
     <td align="center" width="50%">
       <b>Dernières Parties</b><br/><br/>
-      <img src="https://img.shields.io/badge/Recent-W%20|%20W%20|%20L-brightgreen?style=for-the-badge" alt="3 Last Games" />
+      <img src="https://img.shields.io/badge/Recent-W%20%7C%20W%20%7C%20L-brightgreen?style=for-the-badge" alt="3 Last Games" />
     </td>
     <td align="center" width="50%">
       <b>Compte Riot</b><br/><br/>
