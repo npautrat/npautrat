@@ -1,17 +1,15 @@
 - name: Fetch LoL Stats & Update README
         env:
-          RIOT_API_KEY: ${{ secrets.RIOT_API_KEY }} # Optionnel si tu passes par l'API officielle
+          RIOT_API_KEY: ${{ secrets.RIOT_API_KEY }}
         run: |
           python3 -c "
           import urllib.parse
           import requests
 
-          # Valeurs par défaut (sans encodage manuel)
           rank_raw = 'Unranked'
           wr_raw = 'N/A'
           games_raw = 'W | W | L'
 
-          # --- REMPLACE CETTE PARTIE PAR TON APPEL API FONCTIONNEL ---
           try:
               url = 'https://lol-api-sum.graphtree.workers.dev/api/summoner/euw/Sollipitie-TDB'
               res = requests.get(url, timeout=10)
@@ -30,9 +28,8 @@
               rank_raw = f'{tier} {rank_num}'.strip()
           except Exception as e:
               print('Erreur API :', e)
-              wr_raw = '54%' # Fallback propre
+              wr_raw = '54%'
 
-          # Encodage automatique sécurisé pour Shields.io (gère les espaces, %, |, -)
           def encode_badge(text):
               return urllib.parse.quote(text.replace('-', '--').replace('_', '__'))
 
