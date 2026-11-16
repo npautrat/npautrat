@@ -1,78 +1,64 @@
-name: Update LoL Stats
-
-on:
-  schedule:
-    - cron: '0 */6 * * *'
-  workflow_dispatch:
-
-permissions:
-  contents: write
-
-jobs:
-  update-readme:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
-      - name: Install dependencies
-        run: pip install requests
-
-      - name: Fetch LoL Stats & Update README
+- name: Fetch LoL Stats & Update README
+        env:
+          RIOT_API_KEY: ${{ secrets.RIOT_API_KEY }} # Optionnel si tu passes par l'API officielle
         run: |
           python3 -c "
+          import urllib.parse
           import requests
 
-          # API publique alternative pour récupérer les données OP.GG
-          name = 'Sollipitie'
-          tag = 'TDB'
-          url = f'https://lol-api-sum.graphtree.workers.dev/api/summoner/euw/{name}-{tag}'
-          
-          rank_display = 'Diamond'
-          wr_display = '54%'
-          games_display = 'W | W | L'
+          # Valeurs par défaut (sans encodage manuel)
+          rank_raw = 'Unranked'
+          wr_raw = 'N/A'
+          games_raw = 'W | W | L'
 
+          # --- REMPLACE CETTE PARTIE PAR TON APPEL API FONCTIONNEL ---
           try:
+              url = 'https://lol-api-sum.graphtree.workers.dev/api/summoner/euw/Sollipitie-TDB'
               res = requests.get(url, timeout=10)
-              if res.status_code == 200:
-                  data = res.json()
-                  tier = data.get('tier', 'Diamond')
-                  rank_num = data.get('rank', '')
-                  wins = data.get('wins', 0)
-                  losses = data.get('losses', 0)
-                  total = wins + losses
-                  
-                  if total > 0:
-                      wr = round((wins / total) * 100)
-                      wr_display = f'{wr}%25%20({wins}W%20{losses}L)'
-                  rank_display = f'{tier}%20{rank_num}'.strip()
+              res.raise_for_status()
+              data = res.json()
+              
+              tier = data.get('tier', 'Unranked')
+              rank_num = data.get('rank', '')
+              wins = data.get('wins', 0)
+              losses = data.get('losses', 0)
+              total = wins + losses
+              
+              if total > 0:
+                  wr = round((wins / total) * 100)
+                  wr_raw = f'{wr}% ({wins}W {losses}L)'
+              rank_raw = f'{tier} {rank_num}'.strip()
           except Exception as e:
-              print('API error, using fallbacks:', e)
+              print('Erreur API :', e)
+              wr_raw = '54%' # Fallback propre
+
+          # Encodage automatique sécurisé pour Shields.io (gère les espaces, %, |, -)
+          def encode_badge(text):
+              return urllib.parse.quote(text.replace('-', '--').replace('_', '__'))
+
+          rank_badge = encode_badge(rank_raw)
+          wr_badge = encode_badge(wr_raw)
+          games_badge = encode_badge(games_raw)
 
           html = f'''<table>
             <tr>
               <td align=\"center\" width=\"50%\">
                 <b>Progression Ranked</b><br/><br/>
                 <a href=\"https://www.op.gg/summoners/euw/Sollipitie-TDB\">
-                  <img src=\"https://img.shields.io/badge/Rank-{rank_display}-blue?style=for-the-badge&logo=leagueoflegends\" alt=\"Rank\" />
+                  <img src=\"https://img.shields.io/badge/Rank-{rank_badge}-blue?style=for-the-badge&logo=leagueoflegends\" alt=\"Rank\" />
                 </a>
               </td>
               <td align=\"center\" width=\"50%\">
                 <b>Winrate (WR)</b><br/><br/>
                 <a href=\"https://www.op.gg/summoners/euw/Sollipitie-TDB\">
-                  <img src=\"https://img.shields.io/badge/Winrate-{wr_display}-success?style=for-the-badge\" alt=\"Winrate\" />
+                  <img src=\"https://img.shields.io/badge/Winrate-{wr_badge}-success?style=for-the-badge\" alt=\"Winrate\" />
                 </a>
               </td>
             </tr>
             <tr>
               <td align=\"center\" width=\"50%\">
                 <b>Dernières Parties</b><br/><br/>
-                <img src=\"https://img.shields.io/badge/Recent-W%20|%20W%20|%20L-brightgreen?style=for-the-badge\" alt=\"3 Last Games\" />
+                <img src=\"https://img.shields.io/badge/Recent-{games_badge}-brightgreen?style=for-the-badge\" alt=\"3 Last Games\" />
               </td>
               <td align=\"center\" width=\"50%\">
                 <b>Compte Riot</b><br/><br/>
@@ -83,21 +69,13 @@ jobs:
             </tr>
           </table>'''
 
-          with open('README.md', 'r') as f:
+          with open('README.md', 'r', encoding='utf-8') as f:
               content = f.read()
 
           start = '<!--LOL-STATS-START-->'
           end = '<!--LOL-STATS-END-->'
           if start in content and end in content:
               new_content = content.split(start)[0] + start + '\n' + html + '\n' + end + content.split(end)[1]
-              with open('README.md', 'w') as f:
+              with open('README.md', 'w', encoding='utf-8') as f:
                   f.write(new_content)
           "
-
-      - name: Commit & Push changes
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add README.md
-          git diff-index --quiet HEAD || git commit -m "auto: update LoL stats grid"
-          git push
