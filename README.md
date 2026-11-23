@@ -1,8 +1,6 @@
-<table>
-  <tr>
-    <td>
-
-
+<div align="left">
+  <img align="left" width="1" height="1" src="" alt="" />
+  <pre align="left">
                              %%%%%%%                                     
                            %%@@@%%%%%%@%%%%@                             
                          %%@%@@@@@@@@@@%@%@%%%%                          
@@ -42,20 +40,19 @@
           ---------------:-::::::::::-------=++--:::::::-:::::::-        
        ------=----:----::-::--:::::.::----====---::::::::-:::::::::      
     ------------::::---:::-:::-:::::::--==-----:-::::::::::::::::::::    
-    
-    </td>
-    <td valign="top">
-      <h3>&gt; Stack utilisé</h3>
-      <p>
-        - Python<br>
-        - C<br>
-        - SQL<br>
-        - HTML/CSS<br>
-        - DockerDesktop
-      </p>
-    </td>
-  </tr>
-</table>
+  </pre>
+
+  <h3>&gt; Stack utilisé</h3>
+  <p>
+    - Python<br>
+    - C<br>
+    - SQL<br>
+    - HTML/CSS<br>
+    - DockerDesktop
+  </p>
+</div>
+
+<br clear="both" />
 
 <table>
   <tr>
