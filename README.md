@@ -47,11 +47,11 @@
     <td valign="top">
       <h3>&gt; Stack utilisé</h3>
       <p>
-        <!-- Remplis tes technologies, langages et outils ici -->
-        - Langage 1<br>
-        - Langage 2<br>
-        - Framework / Outil 1<br>
-        - Framework / Outil 2
+        - Python<br>
+        - C<br>
+        - SQL<br>
+        - HTML/CSS<br>
+        - DockerDesktop
       </p>
     </td>
   </tr>
