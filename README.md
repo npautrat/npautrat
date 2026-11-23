@@ -34,12 +34,12 @@
 ### 📊 Statistiques & Activité
 
 <p align="center">
-  <img height="165" src="https://github-readme-stats.vercel.app/api?username=TON_PSEUDO_GITHUB&show_icons=true&bg_color=0d1117&title_color=a855f7&icon_color=7c3aed&text_color=c9d1d9&hide_border=true" alt="GitHub Stats" />
-  <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=TON_PSEUDO_GITHUB&layout=compact&bg_color=0d1117&title_color=a855f7&text_color=c9d1d9&hide_border=true" alt="Top Languages" />
+  <img height="165" src="https://github-readme-stats.vercel.app/api?username=npautrat&show_icons=true&bg_color=0d1117&title_color=a855f7&icon_color=7c3aed&text_color=c9d1d9&hide_border=true" alt="GitHub Stats" />
+  <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=npautrat&layout=compact&bg_color=0d1117&title_color=a855f7&text_color=c9d1d9&hide_border=true" alt="Top Languages" />
 </p>
 
 <p align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=TON_PSEUDO_GITHUB&bg_color=0d1117&color=9d4edd&line=7c3aed&point=ffffff&area=true&hide_border=true" alt="Contribution Graph" />
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=npautrat&bg_color=0d1117&color=9d4edd&line=7c3aed&point=ffffff&area=true&hide_border=true" alt="Contribution Graph" />
 </p>
 
 ---
