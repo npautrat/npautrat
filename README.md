@@ -35,7 +35,7 @@
 ### Statistiques & Activité
 
 <p align="center">
-  <img height="165" src="https://github-readme-stats.vercel.app/api?username=npautrat&show_icons=true&include_all_commits=true&hide=contribs&bg_color=0d1117&title_color=a855f7&icon_color=7c3aed&text_color=c9d1d9&hide_border=true" alt="GitHub Stats" />
+  <img height="165" src="https://github-readme-stats.vercel.app/api?username=npautrat&show_icons=true&locale=fr&bg_color=0d1117&title_color=a855f7&icon_color=7c3aed&text_color=c9d1d9&hide_border=true" alt="GitHub Stats" />
   <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=npautrat&layout=compact&bg_color=0d1117&title_color=a855f7&text_color=c9d1d9&hide_border=true" alt="Top Languages" />
 </p>
 
