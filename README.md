@@ -8,13 +8,13 @@
 
 ---
 
-### 👨‍💻 À propos de moi
+### À propos de moi
 
-> Salut ! Moi c'est **Nathan**, développeur curieux et rigoureux. J'aime concevoir des applications performantes, manipuler des bases de données et explorer l'architecture système.
+> Hey, je suis étudiant en 1er année à Coda, je dev pas mal de petit projet sympa
 
-- 🔭 **En ce moment :** Développement de projets en Python, C et conteneurisation avec Docker.
-- 🌱 **Objectif :** Approfondir mes compétences en architecture logicielle et bonnes pratiques DevOps.
-- ⚡ **Ce que j'aime :** Le code propre, l'optimisation et résoudre des problèmes concrets.
+- **En ce moment :** Développement de projets en Python, C et conteneurisation avec Docker.
+- **Objectif :** J'apprends le RUST
+- **Ce que j'aime :** Apprendre de nouveaux langages et et codé mes idées
 
 ---
 
