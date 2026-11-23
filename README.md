@@ -10,11 +10,11 @@
 
 ### À propos de moi
 
-> Hey, je suis étudiant en 1er année à Coda, je dev pas mal de petit projet sympa
+> Hey, je suis étudiant en 1ère année à Coda, je développe pas mal de petits projets sympas !
 
 - **En ce moment :** Développement de projets en Python, C et conteneurisation avec Docker.
-- **Objectif :** J'apprends le RUST
-- **Ce que j'aime :** Apprendre de nouveaux langages et et codé mes idées
+- **Objectif :** Apprendre le langage Rust.
+- **Ce que j'aime :** Découvrir de nouveaux langages et coder mes idées.
 
 ---
 
@@ -23,6 +23,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
   <img src="https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white" alt="C" />
+  <img src="https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white" alt="Rust" />
   <img src="https://img.shields.io/badge/SQL-4479A1?style=for-the-badge&logo=postgresql&logoColor=white" alt="SQL" />
   <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5" />
   <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3" />
