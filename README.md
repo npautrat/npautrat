@@ -1,6 +1,15 @@
 <div align="left">
-  <img align="left" width="1" height="1" src="" alt="" />
-  <pre align="left">
+  <h3>&gt; Stack utilisé</h3>
+  <p>
+    - Python<br>
+    - C<br>
+    - SQL<br>
+    - HTML/CSS<br>
+    - DockerDesktop
+  </p>
+</div>
+
+<pre align="right">
                              %%%%%%%                                     
                            %%@@@%%%%%%@%%%%@                             
                          %%@%@@@@@@@@@@%@%@%%%%                          
@@ -40,17 +49,7 @@
           ---------------:-::::::::::-------=++--:::::::-:::::::-        
        ------=----:----::-::--:::::.::----====---::::::::-:::::::::      
     ------------::::---:::-:::-:::::::--==-----:-::::::::::::::::::::    
-  </pre>
-
-  <h3>&gt; Stack utilisé</h3>
-  <p>
-    - Python<br>
-    - C<br>
-    - SQL<br>
-    - HTML/CSS<br>
-    - DockerDesktop
-  </p>
-</div>
+</pre>
 
 <br clear="both" />
 
