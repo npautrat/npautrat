@@ -18,7 +18,7 @@
 
 ---
 
-### 🛠️ Stack technique
+### Stack technique
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
@@ -31,7 +31,7 @@
 
 ---
 
-### 📊 Statistiques & Activité
+### Statistiques & Activité
 
 <p align="center">
   <img height="165" src="https://github-readme-stats.vercel.app/api?username=npautrat&show_icons=true&bg_color=0d1117&title_color=a855f7&icon_color=7c3aed&text_color=c9d1d9&hide_border=true" alt="GitHub Stats" />
@@ -44,7 +44,7 @@
 
 ---
 
-### 🌐 Me contacter
+### Me contacter
 
 <p align="center">
   <a href="https://www.linkedin.com/in/nathanpautrat/" target="_blank">
